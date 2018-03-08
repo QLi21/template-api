@@ -20,9 +20,11 @@ router.post('/api/template/:id', (req, res) => {
     if (fs.existsSync(path)){
         res.status(400).send('Id exists')
     }
-    fs.writeFile(path, JSON.stringify(req.body), (err) => {
+    let data = JSON.stringify(req.body)
+    console.log(`POST data = ${data}`)
+    fs.writeFile(path, data, (err) => {
         if (err) {
-            res.status(500).send('Write template failed')
+            res.status(500).send(`Write template failed: ${err}`)
         }
         res.sendStatus(200)
     })
